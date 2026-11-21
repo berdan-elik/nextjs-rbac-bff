@@ -1,6 +1,7 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import Link from "next/link";
 import { z } from "zod";
 import { postSchema, type Post } from "@/lib/schemas";
 
@@ -91,7 +92,14 @@ export function PostList({ canPublish }: { canPublish: boolean }) {
                   <span className={published ? "text-accent" : undefined}>
                     {published ? "Published" : "Draft"}
                   </span>
-                  {" · "}/{post.slug}
+                  {" · "}
+                  {published ? (
+                    <Link href={`/posts/${post.slug}`} className="hover:underline">
+                      /posts/{post.slug}
+                    </Link>
+                  ) : (
+                    `/posts/${post.slug}`
+                  )}
                 </p>
               </div>
 
