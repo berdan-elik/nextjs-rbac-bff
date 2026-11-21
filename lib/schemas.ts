@@ -8,15 +8,21 @@ export const userSchema = z.object({
 });
 export type User = z.infer<typeof userSchema>;
 
+const postStatusSchema = z.enum(["draft", "published"]);
+
 export const postSchema = z.object({
   id: z.string(),
   slug: z.string(),
   title: z.string(),
   body: z.string(),
-  status: z.enum(["draft", "published"]),
+  status: postStatusSchema,
   updatedAt: z.iso.datetime(),
 });
 export type Post = z.infer<typeof postSchema>;
+
+export const postStatusUpdateSchema = z.object({
+  status: postStatusSchema,
+});
 
 export const loginRequestSchema = z.object({
   role: z.enum(roles),
