@@ -8,25 +8,28 @@
     "node": ">=22.13.0"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently --kill-others --names web,backend \"next dev\" \"tsx watch backend/server.ts\"",
     "build": "next build",
-    "start": "next start",
+    "start": "concurrently --kill-others --names web,backend \"next start\" \"tsx backend/server.ts\"",
     "lint": "eslint .",
     "typecheck": "next typegen && tsc --noEmit"
   },
   "dependencies": {
     "next": "16.4.6",
     "react": "19.3.1",
-    "react-dom": "19.3.1"
+    "react-dom": "19.3.1",
+    "zod": "4.6.7"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "4.3.5",
     "@types/node": "^22.20.5",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "concurrently": "^10.0.7",
     "eslint": "9.39.5",
     "eslint-config-next": "16.4.6",
     "tailwindcss": "4.3.5",
+    "tsx": "^4.23.15",
     "typescript": "6.0.3"
   }
 }
