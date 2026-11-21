@@ -21,3 +21,8 @@ export type Post = z.infer<typeof postSchema>;
 export const loginRequestSchema = z.object({
   role: z.enum(roles),
 });
+
+export const loginResponseSchema = z.object({
+  accessToken: z.string(),
+  user: userSchema,
+});
