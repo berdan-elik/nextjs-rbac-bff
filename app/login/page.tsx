@@ -9,10 +9,11 @@ const roleNotes: Record<Role, string> = {
   viewer: "Reads the post list, cannot change anything.",
 };
 
-export default async function LoginPage() {
+export default async function LoginPage({ searchParams }: PageProps<"/login">) {
   if (await getSession()) {
     redirect("/");
   }
+  const { next } = await searchParams;
 
   return (
     <main className="mx-auto max-w-md px-6 py-16">
@@ -20,6 +21,7 @@ export default async function LoginPage() {
       <p className="mt-2 text-muted">There are no passwords here. Pick the role to sign in as.</p>
 
       <form action={login} className="mt-8">
+        {typeof next === "string" && <input type="hidden" name="next" value={next} />}
         <fieldset className="space-y-3">
           <legend className="sr-only">Role</legend>
           {roles.map((role) => (
