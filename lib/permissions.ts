@@ -17,15 +17,26 @@ export function hasPermission(role: Role, permission: Permission): boolean {
 type ProtectedRoute = {
   path: string;
   permission: Permission;
+  label?: string;
 };
 
 // A route also covers everything below it, so a new page under /admin is
 // gated by the /admin entry until it gets an entry of its own.
 export const protectedRoutes: readonly ProtectedRoute[] = [
   { path: "/admin", permission: "posts:read" },
-  { path: "/admin/posts", permission: "posts:read" },
-  { path: "/admin/users", permission: "users:read" },
+  { path: "/admin/posts", permission: "posts:read", label: "Posts" },
+  { path: "/admin/users", permission: "users:read", label: "Users" },
 ];
+
+// The menu is built from the same map the gate reads. It only spares people
+// links that would bounce them; it protects nothing.
+export function menuFor(role: Role): { path: string; label: string }[] {
+  return protectedRoutes.flatMap((route) =>
+    route.label && hasPermission(role, route.permission)
+      ? [{ path: route.path, label: route.label }]
+      : [],
+  );
+}
 
 export function requiredPermission(pathname: string): Permission | null {
   let match: ProtectedRoute | null = null;

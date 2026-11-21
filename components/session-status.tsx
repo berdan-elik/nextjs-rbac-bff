@@ -15,6 +15,9 @@ export async function SessionStatus() {
 
   return (
     <form action={logout} className="flex items-center gap-4 text-sm">
+      <Link href="/admin/posts" className="font-medium hover:underline">
+        Admin
+      </Link>
       <span className="text-muted">
         {user.name} · {user.role}
       </span>

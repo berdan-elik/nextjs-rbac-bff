@@ -8,7 +8,7 @@ import { clearSessionCookie, getAccessToken, setSessionCookie } from "@/lib/sess
 // Only same-site paths are accepted, so the login form cannot be used to
 // bounce someone to another origin.
 function safePath(value: FormDataEntryValue | null): string {
-  return typeof value === "string" && /^\/(?![/\\])/.test(value) ? value : "/";
+  return typeof value === "string" && /^\/(?![/\\])/.test(value) ? value : "/admin/posts";
 }
 
 export async function login(formData: FormData): Promise<void> {
