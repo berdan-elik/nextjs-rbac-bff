@@ -29,10 +29,14 @@ export async function login(formData: FormData): Promise<void> {
 }
 
 export async function logout(): Promise<void> {
-  const accessToken = await getAccessToken();
-  if (accessToken) {
-    await backendFetch("/auth/logout", { method: "POST", accessToken });
+  try {
+    const accessToken = await getAccessToken();
+    if (accessToken) {
+      await backendFetch("/auth/logout", { method: "POST", accessToken });
+    }
+  } finally {
+    // The browser must lose the cookie even when the backend cannot be reached.
+    await clearSessionCookie();
   }
-  await clearSessionCookie();
   redirect("/");
 }
