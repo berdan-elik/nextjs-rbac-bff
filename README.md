@@ -24,7 +24,7 @@ pnpm typecheck
 pnpm lint
 ```
 
-The browser tests need Chromium once: `pnpm exec playwright install chromium`.
+The browser tests need Chromium once: `pnpm exec playwright install chromium`. Stop `pnpm dev` before running them: Playwright reuses a server that is already listening on port 3000, and the cookie test expects the production build.
 
 ## What each role can do
 
