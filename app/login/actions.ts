@@ -3,12 +3,17 @@
 import { redirect } from "next/navigation";
 import { backendFetch } from "@/lib/backend";
 import { loginRequestSchema, loginResponseSchema } from "@/lib/schemas";
-import { clearSessionCookie, getAccessToken, setSessionCookie } from "@/lib/session";
+import {
+  clearSessionCookie,
+  getAccessToken,
+  setSessionCookie,
+  signedInHome,
+} from "@/lib/session";
 
 // Only same-site paths are accepted, so the login form cannot be used to
 // bounce someone to another origin.
 function safePath(value: FormDataEntryValue | null): string {
-  return typeof value === "string" && /^\/(?![/\\])/.test(value) ? value : "/admin/posts";
+  return typeof value === "string" && /^\/(?![/\\])/.test(value) ? value : signedInHome;
 }
 
 export async function login(formData: FormData): Promise<void> {

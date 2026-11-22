@@ -5,6 +5,8 @@ import { backendFetch } from "./backend";
 import { userSchema, type User } from "./schemas";
 
 export const sessionCookieName = "session";
+// Where a signed-in user belongs: after signing in, and when opening /login again.
+export const signedInHome = "/admin/posts";
 const maxAgeSeconds = 60 * 60 * 8;
 
 export async function getAccessToken(): Promise<string | null> {

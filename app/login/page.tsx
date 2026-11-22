@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { roles, type Role } from "@/lib/permissions";
-import { getSession } from "@/lib/session";
+import { getSession, signedInHome } from "@/lib/session";
 import { login } from "./actions";
 
 const roleNotes: Record<Role, string> = {
@@ -11,7 +11,7 @@ const roleNotes: Record<Role, string> = {
 
 export default async function LoginPage({ searchParams }: PageProps<"/login">) {
   if (await getSession()) {
-    redirect("/");
+    redirect(signedInHome);
   }
   const { next } = await searchParams;
 
