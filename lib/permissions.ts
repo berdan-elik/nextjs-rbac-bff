@@ -38,11 +38,16 @@ export function menuFor(role: Role): { path: string; label: string }[] {
   );
 }
 
+// Whole segments only: /admin/posts covers /admin/posts/1, not /admin/posts-archive.
+export function coversPath(routePath: string, pathname: string): boolean {
+  return pathname === routePath || pathname.startsWith(`${routePath}/`);
+}
+
 export function requiredPermission(pathname: string): Permission | null {
   let match: ProtectedRoute | null = null;
 
   for (const route of protectedRoutes) {
-    const covers = pathname === route.path || pathname.startsWith(`${route.path}/`);
+    const covers = coversPath(route.path, pathname);
     if (covers && (match === null || route.path.length > match.path.length)) {
       match = route;
     }

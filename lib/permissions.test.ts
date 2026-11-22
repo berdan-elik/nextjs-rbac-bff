@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  coversPath,
   hasPermission,
   menuFor,
   permissions,
@@ -25,6 +26,20 @@ describe("hasPermission", () => {
     expect(hasPermission("viewer", "posts:read")).toBe(true);
     expect(hasPermission("viewer", "posts:publish")).toBe(false);
     expect(hasPermission("viewer", "users:read")).toBe(false);
+  });
+});
+
+describe("coversPath", () => {
+  it("covers the route itself and the paths below it", () => {
+    expect(coversPath("/admin/posts", "/admin/posts")).toBe(true);
+    expect(coversPath("/admin/posts", "/admin/posts/p1")).toBe(true);
+  });
+
+  // The admin menu marks its active tab with this, so a sibling page whose
+  // name starts the same way must not light up "Posts".
+  it("does not cover a sibling that only shares a prefix", () => {
+    expect(coversPath("/admin/posts", "/admin/posts-archive")).toBe(false);
+    expect(coversPath("/admin/posts", "/admin")).toBe(false);
   });
 });
 

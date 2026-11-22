@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { coversPath } from "@/lib/permissions";
 
 type AdminNavProps = {
   items: { path: string; label: string }[];
@@ -13,7 +14,7 @@ export function AdminNav({ items }: AdminNavProps) {
   return (
     <nav aria-label="Admin" className="flex gap-1 border-b border-line">
       {items.map((item) => {
-        const active = pathname.startsWith(item.path);
+        const active = coversPath(item.path, pathname);
         return (
           <Link
             key={item.path}
