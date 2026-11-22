@@ -41,7 +41,7 @@ Roles map to permissions (`posts:read`, `posts:publish`, `users:read`) in `lib/p
 `lib/permissions.ts` holds one map from route to permission. Three layers read it or repeat its decision:
 
 1. **`proxy.ts`** runs before a page is rendered. It looks up the permission for the path, asks the backend who the cookie belongs to, and redirects to `/login` or `/forbidden`.
-2. **`requirePermission()`** is the first line of every protected server component. It makes the same decision again before any data is read.
+2. **`requirePermission()`** is the first line of every protected page. It makes the same decision again before any data is read.
 3. **The backend** resolves the Bearer token and checks the permission in every protected endpoint (`backend/server.ts`).
 
 The admin menu is built from the same map, so a page cannot appear in the menu without being gated, or the other way round.
