@@ -13,7 +13,7 @@ pnpm install
 pnpm dev
 ```
 
-`pnpm dev` starts the Next.js app on http://localhost:3000 and the backend on http://localhost:4000. No `.env` file is needed; `.env.example` lists the two variables that can be changed.
+`pnpm dev` starts the Next.js app on http://localhost:3000 and the backend on http://localhost:4000. No `.env` file is needed. To move the backend to another port, copy `.env.example` to `.env.local` and change both variables; the app and the backend read the same file.
 
 Open http://localhost:3000/login and pick a role. There are no passwords.
 

@@ -1,7 +1,14 @@
+import { existsSync } from "node:fs";
 import { createServer, type IncomingMessage } from "node:http";
 import { hasPermission, type Permission } from "../lib/permissions";
 import { loginRequestSchema, type User } from "../lib/schemas";
 import * as store from "./store";
+
+// Next.js reads .env.local on its own; this process has to do it itself so
+// that one file configures both. Variables already set in the shell win.
+if (existsSync(".env.local")) {
+  process.loadEnvFile(".env.local");
+}
 
 type Reply = { status: number; body?: unknown };
 
